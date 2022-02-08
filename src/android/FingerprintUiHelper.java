@@ -107,7 +107,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
     public void onAuthenticationError(int errMsgId, final CharSequence errString) {
         // FINGERPRINT_ERROR_USER_CANCELED is thrown when the user clicks the "cancel" button on the
         // native fingerprint overlay (this overlay appears often on devices with fingerprint on-screen functionality)
-        if (errMsgId == android.hardware.fingerprint.FingerprintManager.FINGERPRINT_ERROR_USER_CANCELED) {
+        if (errMsgId == android.hardware.fingerprint.FingerprintManager.FINGERPRINT_ERROR_USER_CANCELED || errMsgId == android.hardware.fingerprint.FingerprintManager.FINGERPRINT_ERROR_CANCELED) {
             mCallback.onCancelledByUser();
             return;
         }
