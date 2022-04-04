@@ -112,6 +112,12 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
             return;
         }
 
+        // Error code 1010 was discovered on a Google Pixel 6 where the Home button was pressed during the Fingerprint dialog.
+        if (errMsgId == 1010) {
+            mCallback.onCancelledByUser();
+            return;
+        }
+
         if (!mSelfCancelled) {
             showError(errString);
             mIcon.postDelayed(new Runnable() {
