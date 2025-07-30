@@ -75,6 +75,14 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // https://github.com/mjwheatley/cordova-plugin-android-fingerprint-auth/pull/139/files
+        // Gracefully close the Fingerprint dialog when plugin data is unrecoverable,
+        // possibly due to the OS killing the app while in the background.
+        if (FingerprintAuth.packageName == null) {
+            Log.e(TAG, "Internal data loss, dismissing dialog");
+            dismissAllowingStateLoss();
+        }
+
         Bundle args = getArguments();
         Log.d(TAG, "disableBackup: " + FingerprintAuth.mDisableBackup);
 
